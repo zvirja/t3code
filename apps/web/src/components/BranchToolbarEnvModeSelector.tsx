@@ -28,6 +28,7 @@ interface BranchToolbarEnvModeSelectorProps {
   envLocked: boolean;
   effectiveEnvMode: EnvMode;
   activeWorktreePath: string | null;
+  currentWorkspacePath?: string;
   onEnvModeChange: (mode: EnvMode) => void;
   previousWorktreeLabel?: string | null;
   previousWorktreeBranch?: string | null;
@@ -39,6 +40,7 @@ export const BranchToolbarEnvModeSelector = memo(function BranchToolbarEnvModeSe
   envLocked,
   effectiveEnvMode,
   activeWorktreePath,
+  currentWorkspacePath,
   onEnvModeChange,
   previousWorktreeLabel,
   previousWorktreeBranch = null,
@@ -139,7 +141,7 @@ export const BranchToolbarEnvModeSelector = memo(function BranchToolbarEnvModeSe
         <TooltipPopup>
           {effectiveEnvMode === "worktree"
             ? resolveEnvModeLabel("worktree")
-            : resolveCurrentWorkspaceLabel(activeWorktreePath)}
+            : (currentWorkspacePath ?? resolveCurrentWorkspaceLabel(activeWorktreePath))}
         </TooltipPopup>
       </Tooltip>
       <SelectPopup

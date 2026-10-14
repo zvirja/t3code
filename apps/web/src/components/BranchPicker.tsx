@@ -288,6 +288,10 @@ export function BranchPickerRefItem({
         : refName.isDefault
           ? "default"
           : null;
+  const badgePath =
+    badge === "worktree" || badge === "current" || badge === "default"
+      ? (refName.worktreePath ?? activeProjectCwd)
+      : null;
   return (
     <ComboboxItem
       disabled={disabled}
@@ -300,7 +304,14 @@ export function BranchPickerRefItem({
     >
       <div className="flex w-full min-w-0 items-center justify-between gap-2">
         <MiddleTruncate value={itemValue} className="flex-1" />
-        {badge && <span className="shrink-0 text-3xs text-muted-foreground/45">{badge}</span>}
+        {badge && (
+          <Tooltip>
+            <TooltipTrigger
+              render={<span className="shrink-0 text-3xs text-muted-foreground/45">{badge}</span>}
+            />
+            {badgePath && <TooltipPopup>{badgePath}</TooltipPopup>}
+          </Tooltip>
+        )}
       </div>
     </ComboboxItem>
   );

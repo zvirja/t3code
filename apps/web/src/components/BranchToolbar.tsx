@@ -220,11 +220,9 @@ const RunContextSelector = memo(function RunContextSelector({
         />
       </TooltipTrigger>
       <TooltipPopup>
-        {isPanel
-          ? forceNewWorktree
-            ? "Each model starts in its own worktree."
-            : (workspacePath ?? workspaceLabel)
-          : workspaceLabel}
+        {forceNewWorktree
+          ? "Each model starts in its own worktree."
+          : (workspacePath ?? workspaceLabel)}
       </TooltipPopup>
     </Tooltip>
   );
@@ -769,6 +767,7 @@ export const BranchToolbar = memo(function BranchToolbar({
       {showGitControls ? (
         <div className="contents @3xl/composer-surface:hidden">
           <RunContextSelector
+            workspaceRoot={activeProject.workspaceRoot}
             forceNewWorktree={forceNewWorktree}
             autoEnvironmentLabel={autoEnvironmentLabel}
             onAutoEnvironment={onAutoEnvironment}
@@ -821,6 +820,7 @@ export const BranchToolbar = memo(function BranchToolbar({
               envLocked={envModeLocked}
               effectiveEnvMode={effectiveEnvMode}
               activeWorktreePath={activeWorktreePath}
+              currentWorkspacePath={activeWorktreePath ?? activeProject.workspaceRoot}
               onEnvModeChange={onEnvModeChange}
               previousWorktreeLabel={previousWorktreeLabel}
               previousWorktreeBranch={previousWorktreeSeed?.branch ?? null}
